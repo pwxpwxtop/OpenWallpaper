@@ -5,12 +5,21 @@ package main
 import (
 	"errors"
 	"fmt"
+	"image"
+	_ "image/gif"
+	_ "image/jpeg"
+	_ "image/png"
 	"net/url"
+	"os"
+	"path/filepath"
+	"strings"
 	"syscall"
 	"time"
 	"unsafe"
 
 	"github.com/wailsapp/wails/v3/pkg/application"
+	"golang.org/x/image/bmp"
+	_ "golang.org/x/image/webp"
 )
 
 const dynamicWindowName = "openwallpaper-layer"
@@ -64,7 +73,19 @@ func applyImageWallpaper(path string) error {
 	if err := stopDynamicWallpaper(); err != nil {
 		return err
 	}
-	p, err := syscall.UTF16PtrFromString(path)
+
+	target := path
+	// Windows 桌面壁纸只稳定支持 BMP / JPG / PNG，WebP、GIF 需要先转成 BMP。
+	ext := strings.ToLower(filepath.Ext(path))
+	if ext == ".webp" || ext == ".gif" {
+		converted, err := convertToBMP(path)
+		if err != nil {
+			return fmt.Errorf("转换壁纸格式失败: %w", err)
+		}
+		target = converted
+	}
+
+	p, err := syscall.UTF16PtrFromString(target)
 	if err != nil {
 		return err
 	}
@@ -78,6 +99,60 @@ func applyImageWallpaper(path string) error {
 		return fmt.Errorf("设置桌面壁纸失败: %w", callErr)
 	}
 	return nil
+}
+
+// convertToBMP 把 WebP / GIF 等格式转成桌面壁纸可直接使用的 BMP。
+func convertToBMP(source string) (string, error) {
+	file, err := os.Open(source)
+	if err != nil {
+		return "", err
+	}
+	defer file.Close()
+
+	img, _, err := image.Decode(file)
+	if err != nil {
+		return "", err
+	}
+
+	base := os.Getenv("AppData")
+	if base == "" {
+		base = os.TempDir()
+	}
+	dir := filepath.Join(base, "OpenWallpaper", "wallpaper-cache")
+	if err := os.MkdirAll(dir, 0o755); err != nil {
+		return "", err
+	}
+
+	target := filepath.Join(dir, fmt.Sprintf("wallpaper-%d.bmp", time.Now().UnixNano()))
+	out, err := os.Create(target)
+	if err != nil {
+		return "", err
+	}
+	encodeErr := bmp.Encode(out, img)
+	closeErr := out.Close()
+	if encodeErr != nil {
+		os.Remove(target)
+		return "", encodeErr
+	}
+	if closeErr != nil {
+		os.Remove(target)
+		return "", closeErr
+	}
+
+	// 清理之前的转换缓存，只保留当前这张。
+	entries, err := os.ReadDir(dir)
+	if err == nil {
+		for _, entry := range entries {
+			if entry.IsDir() || !strings.HasSuffix(entry.Name(), ".bmp") {
+				continue
+			}
+			old := filepath.Join(dir, entry.Name())
+			if old != target {
+				_ = os.Remove(old)
+			}
+		}
+	}
+	return target, nil
 }
 
 func applyDynamicWallpaper(w Wallpaper) error {
@@ -124,9 +199,14 @@ func applyDynamicWallpaper(w Wallpaper) error {
 		// 越早禁用激活越好：窗口一旦被激活，Wails 会调用 WebView2 的 MoveFocus，
 		// 控制器尚未就绪时该调用返回 E_INVALIDARG，go-webview2 会直接结束进程。
 		stopActivation(hwnd)
-		// 等 WebView2 控制器初始化完成，再贴到桌面图层。
+		// 等 WebView2 控制器初始化完成，再贴到桌面图层；找不到 WorkerW 时重试几次。
 		time.Sleep(1500 * time.Millisecond)
-		_ = attachToDesktop(hwnd)
+		for attempt := 0; attempt < 8; attempt++ {
+			if err := attachToDesktop(hwnd); err == nil {
+				return
+			}
+			time.Sleep(700 * time.Millisecond)
+		}
 	}()
 
 	return nil

@@ -9,6 +9,8 @@ export const useSettingsStore = defineStore('settings', () => {
   const downloadDir = ref('')
   const pluginDir = ref('')
   const pluginPort = ref(0)
+  const rotateEnabled = ref(false)
+  const rotateMinutes = ref(30)
   const loading = ref(false)
 
   let loaded = false
@@ -25,6 +27,8 @@ export const useSettingsStore = defineStore('settings', () => {
     downloadDir.value = settings.downloadDir ?? ''
     pluginDir.value = settings.pluginDir ?? ''
     pluginPort.value = settings.pluginPort ?? 0
+    rotateEnabled.value = Boolean(settings.rotateEnabled)
+    rotateMinutes.value = settings.rotateMinutes || 30
     applyTheme(settings.theme)
   }
 
@@ -88,6 +92,12 @@ export const useSettingsStore = defineStore('settings', () => {
     return await WallpaperService.LaunchBrowserWithExtension(url)
   }
 
+  async function setRotation(enabled, minutes) {
+    await WallpaperService.SetRotation(enabled, minutes)
+    rotateEnabled.value = Boolean(enabled)
+    rotateMinutes.value = minutes
+  }
+
   return {
     theme,
     folders,
@@ -95,6 +105,8 @@ export const useSettingsStore = defineStore('settings', () => {
     downloadDir,
     pluginDir,
     pluginPort,
+    rotateEnabled,
+    rotateMinutes,
     loading,
     load,
     setTheme,
@@ -106,5 +118,6 @@ export const useSettingsStore = defineStore('settings', () => {
     openUrl,
     installExtension,
     launchBrowserExtension,
+    setRotation,
   }
 })

@@ -7,12 +7,14 @@ import (
 	"errors"
 	"fmt"
 	"io/fs"
+	"math/rand"
 	"net/url"
 	"os"
 	"path/filepath"
 	"sort"
 	"strings"
 	"sync"
+	"time"
 
 	"github.com/wailsapp/wails/v3/pkg/application"
 )
@@ -40,20 +42,24 @@ type Folder struct {
 
 // Settings 是持久化的应用设置。
 type Settings struct {
-	Folders     []Folder `json:"folders"`
-	Theme       string   `json:"theme"`
-	Active      string   `json:"active"`
-	DownloadDir string   `json:"downloadDir"`
-	PluginDir   string   `json:"pluginDir"`
-	PluginPort  int      `json:"pluginPort"`
+	Folders       []Folder `json:"folders"`
+	Theme         string   `json:"theme"`
+	Active        string   `json:"active"`
+	DownloadDir   string   `json:"downloadDir"`
+	PluginDir     string   `json:"pluginDir"`
+	PluginPort    int      `json:"pluginPort"`
+	RotateEnabled bool     `json:"rotateEnabled"`
+	RotateMinutes int      `json:"rotateMinutes"`
 }
 
 type storedSettings struct {
-	Folders     []string            `json:"folders"`
-	Theme       string              `json:"theme"`
-	Active      string              `json:"active"`
-	DownloadDir string              `json:"downloadDir"`
-	Items       map[string]itemMeta `json:"items"`
+	Folders       []string            `json:"folders"`
+	Theme         string              `json:"theme"`
+	Active        string              `json:"active"`
+	DownloadDir   string              `json:"downloadDir"`
+	RotateEnabled bool                `json:"rotateEnabled"`
+	RotateMinutes int                 `json:"rotateMinutes"`
+	Items         map[string]itemMeta `json:"items"`
 }
 
 // itemMeta 保存单个壁纸的标签与成人内容标记。
@@ -71,16 +77,25 @@ type WallpaperService struct {
 	downloadDirPath string
 	items           map[string]itemMeta
 	configPath      string
+	rotateEnabled   bool
+	rotateMinutes   int
+	rotateWake      chan struct{}
 }
 
 func NewWallpaperService() *WallpaperService {
-	s := &WallpaperService{theme: "dark", items: make(map[string]itemMeta)}
+	s := &WallpaperService{
+		theme:         "dark",
+		items:         make(map[string]itemMeta),
+		rotateMinutes: 30,
+		rotateWake:    make(chan struct{}, 1),
+	}
 	if dir, err := os.UserConfigDir(); err == nil {
 		s.configPath = filepath.Join(dir, "OpenWallpaper", "config.json")
 		s.load()
 	}
 	// 下载目录默认作为壁纸库来源，插件抓取的图片可直接在壁纸库中看到。
 	s.ensureDownloadFolder()
+	go s.rotationLoop()
 	return s
 }
 
@@ -96,6 +111,10 @@ func (s *WallpaperService) load() {
 	s.folders = stored.Folders
 	s.active = stored.Active
 	s.downloadDirPath = stored.DownloadDir
+	s.rotateEnabled = stored.RotateEnabled
+	if stored.RotateMinutes > 0 {
+		s.rotateMinutes = stored.RotateMinutes
+	}
 	if stored.Items != nil {
 		s.items = stored.Items
 	}
@@ -112,11 +131,13 @@ func (s *WallpaperService) save() error {
 		return err
 	}
 	data, err := json.MarshalIndent(storedSettings{
-		Folders:     s.folders,
-		Theme:       s.theme,
-		Active:      s.active,
-		DownloadDir: s.downloadDirPath,
-		Items:       s.items,
+		Folders:       s.folders,
+		Theme:         s.theme,
+		Active:        s.active,
+		DownloadDir:   s.downloadDirPath,
+		RotateEnabled: s.rotateEnabled,
+		RotateMinutes: s.rotateMinutes,
+		Items:         s.items,
 	}, "", "  ")
 	if err != nil {
 		return err
@@ -131,12 +152,14 @@ func (s *WallpaperService) settings() Settings {
 	}
 	pluginPath, _ := pluginDir()
 	out := Settings{
-		Theme:       s.theme,
-		Active:      s.active,
-		Folders:     make([]Folder, 0, len(s.folders)),
-		DownloadDir: downloadDir,
-		PluginDir:   pluginPath,
-		PluginPort:  pluginPort,
+		Theme:         s.theme,
+		Active:        s.active,
+		Folders:       make([]Folder, 0, len(s.folders)),
+		DownloadDir:   downloadDir,
+		PluginDir:     pluginPath,
+		PluginPort:    pluginPort,
+		RotateEnabled: s.rotateEnabled,
+		RotateMinutes: s.rotateMinutes,
 	}
 	for _, f := range s.folders {
 		info, err := os.Stat(f)
@@ -416,6 +439,100 @@ func (s *WallpaperService) StopDynamicWallpaper() error {
 	err := s.save()
 	s.mu.Unlock()
 	return err
+}
+
+// SetRotation 保存自动切换壁纸的设置，并立即重置计时。
+func (s *WallpaperService) SetRotation(enabled bool, minutes int) error {
+	if minutes < 1 {
+		minutes = 1
+	}
+	if minutes > 1440 {
+		minutes = 1440
+	}
+	s.mu.Lock()
+	s.rotateEnabled = enabled
+	s.rotateMinutes = minutes
+	err := s.save()
+	s.mu.Unlock()
+
+	// 唤醒轮询协程，按新设置重新计时。
+	select {
+	case s.rotateWake <- struct{}{}:
+	default:
+	}
+	return err
+}
+
+// rotationLoop 按设置的时间间隔随机切换图片壁纸。
+func (s *WallpaperService) rotationLoop() {
+	for {
+		s.mu.RLock()
+		enabled := s.rotateEnabled
+		minutes := s.rotateMinutes
+		s.mu.RUnlock()
+
+		if !enabled || minutes <= 0 {
+			select {
+			case <-s.rotateWake:
+			case <-time.After(time.Minute):
+			}
+			continue
+		}
+
+		timer := time.NewTimer(time.Duration(minutes) * time.Minute)
+		select {
+		case <-timer.C:
+			s.rotateOnce()
+		case <-s.rotateWake:
+			if !timer.Stop() {
+				<-timer.C
+			}
+		}
+	}
+}
+
+// rotateOnce 从壁纸库随机挑一张图片壁纸应用。
+func (s *WallpaperService) rotateOnce() {
+	s.mu.RLock()
+	active := s.active
+	s.mu.RUnlock()
+	// 动态壁纸运行时不打扰用户。
+	if isDynamicWallpaperPath(active) {
+		return
+	}
+
+	list, err := s.ScanWallpapers()
+	if err != nil {
+		return
+	}
+	candidates := make([]Wallpaper, 0, len(list))
+	for _, item := range list {
+		if item.Kind != "image" || strings.EqualFold(item.Path, active) {
+			continue
+		}
+		candidates = append(candidates, item)
+	}
+	if len(candidates) == 0 {
+		return
+	}
+
+	pick := candidates[rand.Intn(len(candidates))]
+	if err := applyImageWallpaper(pick.Path); err != nil {
+		return
+	}
+	s.mu.Lock()
+	s.active = pick.Path
+	_ = s.save()
+	s.mu.Unlock()
+}
+
+// isDynamicWallpaperPath 判断当前壁纸是否是视频 / HTML 类型。
+func isDynamicWallpaperPath(path string) bool {
+	if path == "" {
+		return false
+	}
+	ext := strings.ToLower(filepath.Ext(path))
+	return ext == ".html" || ext == ".htm" || videoExtensions[ext]
 }
 
 // DeleteWallpaper 删除壁纸文件；目录形式的 HTML 壁纸会连同整个目录一起删除。

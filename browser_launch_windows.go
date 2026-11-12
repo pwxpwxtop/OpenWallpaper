@@ -337,10 +337,10 @@ func reuseRunningBrowser(profile, startURL string) bool {
 }
 
 // loadExtensionOverCDP 通过 Chrome DevTools 协议加载未打包插件，并打开目标网页。
-func loadExtensionOverCDP(profile string, port int, extensionDir, startURL string) bool {
+func loadExtensionOverCDP(profile string, port int, extensionDir, startURL string) (bool, string) {
 	conn, ctx, cancel, ok := connectDebugger(profile, port)
 	if !ok {
-		return false
+		return false, "debugger 连接失败"
 	}
 	defer cancel()
 	defer conn.Close(websocket.StatusNormalClosure, "")
@@ -349,6 +349,10 @@ func loadExtensionOverCDP(profile string, port int, extensionDir, startURL strin
 		"path": extensionDir,
 	})
 	loaded := errText == "" || strings.Contains(strings.ToLower(errText), "already")
+	detail := errText
+	if detail == "" {
+		detail = "ok"
+	}
 
 	if startURL != "" {
 		// 首次创建时复用启动时的空白标签页导航，避免多开标签；没有可用标签时再新建。
@@ -356,5 +360,23 @@ func loadExtensionOverCDP(profile string, port int, extensionDir, startURL strin
 			openNewTab(ctx, conn, startURL)
 		}
 	}
-	return loaded
+	return loaded, detail
+}
+
+// appendBrowserLog 把浏览器启动 / 插件加载结果写入日志，便于排查问题。
+func appendBrowserLog(line string) {
+	base := os.Getenv("AppData")
+	if base == "" {
+		return
+	}
+	file := filepath.Join(base, "OpenWallpaper", "browser.log")
+	if err := os.MkdirAll(filepath.Dir(file), 0o755); err != nil {
+		return
+	}
+	handle, err := os.OpenFile(file, os.O_CREATE|os.O_APPEND|os.O_WRONLY, 0o644)
+	if err != nil {
+		return
+	}
+	defer handle.Close()
+	_, _ = fmt.Fprintf(handle, "%s %s\n", time.Now().Format(time.RFC3339), line)
 }

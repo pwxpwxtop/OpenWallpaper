@@ -21,11 +21,11 @@
 点击“推荐网站”中的任意站点时，应用会：
 
 1. 优先复用已经由应用创建的独立浏览器窗口（新开标签页，不覆盖已有页面）；
-2. 若未运行，优先使用本机已安装的 Chrome 内核创建独立实例，不额外下载；
-3. 未检测到 Chrome 时，自动下载便携版 Chromium 到本地；
+2. 若未运行，使用应用自己的便携版 Chromium（Chrome for Testing）；已下载过则直接复用，不再重复下载；
+3. 本机 Chrome / Edge 会被 Chrome 官方限制挡住程序化加载未打包插件，仅在便携版不可用时作为兜底；
 4. 通过 DevTools 协议自动安装插件、最大化窗口并打开目标网址。
 
-> 浏览器窗口使用独立配置目录 `%AppData%\OpenWallpaper\browser-session`，不会影响日常浏览的 Chrome / Edge 配置。
+> 浏览器窗口使用独立配置目录 `%AppData%\OpenWallpaper\app-browser`，不会影响日常浏览的 Chrome / Edge 配置。
 
 ## 环境要求
 
@@ -84,7 +84,7 @@ wails3 generate bindings -ts -i -clean -d frontend/bindings
 | --- | --- |
 | 应用配置 | `%AppData%\OpenWallpaper\config.json` |
 | 导出的插件 | `%AppData%\OpenWallpaper\plugin` |
-| 独立浏览器配置 | `%AppData%\OpenWallpaper\browser-session` |
+| 独立浏览器配置 | `%AppData%\OpenWallpaper\app-browser` |
 | 便携版 Chromium | `%AppData%\OpenWallpaper\chromium` |
 | 默认下载缓存 | `%UserProfile%\Pictures\OpenWallpaper` |
 
@@ -115,3 +115,4 @@ ja: {
 - Chrome 137 及以上已收紧 `--load-extension` 命令行加载，本项目改用 DevTools 协议的 `Extensions.loadUnpacked` 安装插件。
 - 首次下载便携版 Chromium 需要网络（约 150 MB），之后会直接复用。
 - 关闭主窗口不会退出应用，请使用托盘菜单退出。
+- 构建时若出现 `The requested operation cannot be performed on a file with a user-mapped section open`，说明旧版应用仍在运行（关闭按钮只是隐藏到托盘）。请右键托盘图标选择“退出”，或结束 `bin/OpenWallpaper.exe` 进程后重新构建。

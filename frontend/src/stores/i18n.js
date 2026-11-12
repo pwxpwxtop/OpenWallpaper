@@ -142,6 +142,12 @@ export const locales = {
       'settings.formatVideo': '视频壁纸',
       'settings.formatHtml': 'HTML 壁纸',
       'settings.formatHtmlDetail': 'index.html 或独立 .html 文件',
+      'settings.rotate': '自动切换壁纸',
+      'settings.rotateDesc': '按设定间隔从壁纸库中随机切换图片壁纸。',
+      'settings.rotateEnable': '开启自动切换',
+      'settings.rotateInterval': '切换间隔',
+      'settings.rotateMinutes': '{count} 分钟',
+      'toast.rotateSaved': '自动切换设置已保存',
 
       'toast.folderAdded': '已添加文件夹',
       'toast.folderRemoved': '已移除文件夹',
@@ -316,6 +322,13 @@ export const locales = {
       'settings.formatVideo': 'Video wallpapers',
       'settings.formatHtml': 'HTML wallpapers',
       'settings.formatHtmlDetail': 'index.html or a standalone .html file',
+      'settings.rotate': 'Auto-rotate wallpapers',
+      'settings.rotateDesc':
+        'Randomly switch between image wallpapers from your library at the chosen interval.',
+      'settings.rotateEnable': 'Enable auto-rotate',
+      'settings.rotateInterval': 'Interval',
+      'settings.rotateMinutes': '{count} min',
+      'toast.rotateSaved': 'Auto-rotate settings saved',
 
       'toast.folderAdded': 'Folder added',
       'toast.folderRemoved': 'Folder removed',
@@ -528,6 +541,13 @@ export const locales = {
       'settings.formatVideo': '動画壁紙',
       'settings.formatHtml': 'HTML 壁紙',
       'settings.formatHtmlDetail': 'index.html または単体の .html ファイル',
+      'settings.rotate': '壁紙の自動切り替え',
+      'settings.rotateDesc':
+        '設定した間隔で、壁紙ライブラリから画像壁紙をランダムに切り替えます。',
+      'settings.rotateEnable': '自動切り替えを有効にする',
+      'settings.rotateInterval': '切り替え間隔',
+      'settings.rotateMinutes': '{count} 分',
+      'toast.rotateSaved': '自動切り替えの設定を保存しました',
 
       'toast.folderAdded': 'フォルダを追加しました',
       'toast.folderRemoved': 'フォルダを削除しました',
@@ -738,6 +758,13 @@ export const locales = {
       'settings.formatVideo': '동영상 배경화면',
       'settings.formatHtml': 'HTML 배경화면',
       'settings.formatHtmlDetail': 'index.html 또는 단일 .html 파일',
+      'settings.rotate': '배경화면 자동 전환',
+      'settings.rotateDesc':
+        '설정한 간격으로 배경화면 라이브러리에서 이미지 배경화면을 무작위로 전환합니다.',
+      'settings.rotateEnable': '자동 전환 사용',
+      'settings.rotateInterval': '전환 간격',
+      'settings.rotateMinutes': '{count}분',
+      'toast.rotateSaved': '자동 전환 설정을 저장했습니다',
 
       'toast.folderAdded': '폴더를 추가했습니다',
       'toast.folderRemoved': '폴더를 제거했습니다',
@@ -955,6 +982,13 @@ export const locales = {
       'settings.formatVideo': 'Video-Hintergründe',
       'settings.formatHtml': 'HTML-Hintergründe',
       'settings.formatHtmlDetail': 'index.html oder eine einzelne .html-Datei',
+      'settings.rotate': 'Wallpaper automatisch wechseln',
+      'settings.rotateDesc':
+        'Wechselt in festgelegten Abständen zufällig zwischen Bild-Hintergründen.',
+      'settings.rotateEnable': 'Automatischen Wechsel aktivieren',
+      'settings.rotateInterval': 'Intervall',
+      'settings.rotateMinutes': '{count} Min.',
+      'toast.rotateSaved': 'Einstellungen für den automatischen Wechsel gespeichert',
 
       'toast.folderAdded': 'Ordner hinzugefügt',
       'toast.folderRemoved': 'Ordner entfernt',
@@ -1172,6 +1206,13 @@ export const locales = {
       'settings.formatVideo': 'Видеообои',
       'settings.formatHtml': 'HTML-обои',
       'settings.formatHtmlDetail': 'index.html или отдельный файл .html',
+      'settings.rotate': 'Автоматическая смена обоев',
+      'settings.rotateDesc':
+        'Случайно переключает обои-изображения через заданный интервал.',
+      'settings.rotateEnable': 'Включить автоматическую смену',
+      'settings.rotateInterval': 'Интервал',
+      'settings.rotateMinutes': '{count} мин',
+      'toast.rotateSaved': 'Настройки автоматической смены сохранены',
 
       'toast.folderAdded': 'Папка добавлена',
       'toast.folderRemoved': 'Папка удалена',
@@ -1388,6 +1429,13 @@ export const locales = {
       'settings.formatVideo': 'Hình nền video',
       'settings.formatHtml': 'Hình nền HTML',
       'settings.formatHtmlDetail': 'index.html hoặc tệp .html riêng lẻ',
+      'settings.rotate': 'Tự động đổi hình nền',
+      'settings.rotateDesc':
+        'Chuyển ngẫu nhiên giữa các hình nền ảnh theo khoảng thời gian đã đặt.',
+      'settings.rotateEnable': 'Bật tự động chuyển',
+      'settings.rotateInterval': 'Khoảng thời gian',
+      'settings.rotateMinutes': '{count} phút',
+      'toast.rotateSaved': 'Đã lưu cài đặt tự động chuyển',
 
       'toast.folderAdded': 'Đã thêm thư mục',
       'toast.folderRemoved': 'Đã xóa thư mục',
@@ -1607,6 +1655,13 @@ export const locales = {
       'settings.formatVideo': 'Fondos de vídeo',
       'settings.formatHtml': 'Fondos HTML',
       'settings.formatHtmlDetail': 'index.html o un archivo .html suelto',
+      'settings.rotate': 'Rotación automática de fondos',
+      'settings.rotateDesc':
+        'Cambia aleatoriamente entre fondos de imagen según el intervalo elegido.',
+      'settings.rotateEnable': 'Activar rotación automática',
+      'settings.rotateInterval': 'Intervalo',
+      'settings.rotateMinutes': '{count} min',
+      'toast.rotateSaved': 'Ajustes de rotación automática guardados',
 
       'toast.folderAdded': 'Carpeta añadida',
       'toast.folderRemoved': 'Carpeta eliminada',
@@ -1826,6 +1881,13 @@ export const locales = {
       'settings.formatVideo': 'Fonds vidéo',
       'settings.formatHtml': 'Fonds HTML',
       'settings.formatHtmlDetail': 'index.html ou un fichier .html autonome',
+      'settings.rotate': 'Rotation automatique des fonds',
+      'settings.rotateDesc':
+        'Alterne aléatoirement entre les fonds d’image selon l’intervalle choisi.',
+      'settings.rotateEnable': 'Activer la rotation automatique',
+      'settings.rotateInterval': 'Intervalle',
+      'settings.rotateMinutes': '{count} min',
+      'toast.rotateSaved': 'Paramètres de rotation automatique enregistrés',
 
       'toast.folderAdded': 'Dossier ajouté',
       'toast.folderRemoved': 'Dossier retiré',
@@ -2045,6 +2107,13 @@ export const locales = {
       'settings.formatVideo': 'Papéis de vídeo',
       'settings.formatHtml': 'Papéis HTML',
       'settings.formatHtmlDetail': 'index.html ou um arquivo .html avulso',
+      'settings.rotate': 'Rotação automática de papéis de parede',
+      'settings.rotateDesc':
+        'Alterna aleatoriamente entre papéis de parede de imagem no intervalo definido.',
+      'settings.rotateEnable': 'Ativar rotação automática',
+      'settings.rotateInterval': 'Intervalo',
+      'settings.rotateMinutes': '{count} min',
+      'toast.rotateSaved': 'Configurações de rotação automática salvas',
 
       'toast.folderAdded': 'Pasta adicionada',
       'toast.folderRemoved': 'Pasta removida',
@@ -2264,6 +2333,13 @@ export const locales = {
       'settings.formatVideo': 'Sfondi video',
       'settings.formatHtml': 'Sfondi HTML',
       'settings.formatHtmlDetail': 'index.html o un file .html singolo',
+      'settings.rotate': 'Rotazione automatica degli sfondi',
+      'settings.rotateDesc':
+        'Alterna casualmente tra gli sfondi immagine all’intervallo scelto.',
+      'settings.rotateEnable': 'Attiva rotazione automatica',
+      'settings.rotateInterval': 'Intervallo',
+      'settings.rotateMinutes': '{count} min',
+      'toast.rotateSaved': 'Impostazioni di rotazione automatica salvate',
 
       'toast.folderAdded': 'Cartella aggiunta',
       'toast.folderRemoved': 'Cartella rimossa',
@@ -2480,6 +2556,12 @@ export const locales = {
       'settings.formatVideo': 'วอลเปเปอร์วิดีโอ',
       'settings.formatHtml': 'วอลเปเปอร์ HTML',
       'settings.formatHtmlDetail': 'index.html หรือไฟล์ .html เดี่ยว',
+      'settings.rotate': 'สลับวอลเปเปอร์อัตโนมัติ',
+      'settings.rotateDesc': 'สลับวอลเปเปอร์รูปภาพแบบสุ่มตามช่วงเวลาที่ตั้งไว้',
+      'settings.rotateEnable': 'เปิดการสลับอัตโนมัติ',
+      'settings.rotateInterval': 'ช่วงเวลา',
+      'settings.rotateMinutes': '{count} นาที',
+      'toast.rotateSaved': 'บันทึกการตั้งค่าสลับอัตโนมัติแล้ว',
 
       'toast.folderAdded': 'เพิ่มโฟลเดอร์แล้ว',
       'toast.folderRemoved': 'ลบโฟลเดอร์แล้ว',
@@ -2699,6 +2781,13 @@ export const locales = {
       'settings.formatVideo': 'Wallpaper video',
       'settings.formatHtml': 'Wallpaper HTML',
       'settings.formatHtmlDetail': 'index.html atau file .html tunggal',
+      'settings.rotate': 'Rotasi wallpaper otomatis',
+      'settings.rotateDesc':
+        'Berganti acak antar wallpaper gambar sesuai interval yang dipilih.',
+      'settings.rotateEnable': 'Aktifkan rotasi otomatis',
+      'settings.rotateInterval': 'Interval',
+      'settings.rotateMinutes': '{count} menit',
+      'toast.rotateSaved': 'Pengaturan rotasi otomatis disimpan',
 
       'toast.folderAdded': 'Folder ditambahkan',
       'toast.folderRemoved': 'Folder dihapus',
@@ -2901,6 +2990,12 @@ export const locales = {
       'settings.formatVideo': '影片壁紙',
       'settings.formatHtml': 'HTML 壁紙',
       'settings.formatHtmlDetail': 'index.html 或獨立 .html 檔案',
+      'settings.rotate': '自動切換壁紙',
+      'settings.rotateDesc': '依設定的間隔從壁紙庫隨機切換圖片壁紙。',
+      'settings.rotateEnable': '開啟自動切換',
+      'settings.rotateInterval': '切換間隔',
+      'settings.rotateMinutes': '{count} 分鐘',
+      'toast.rotateSaved': '已儲存自動切換設定',
 
       'toast.folderAdded': '已新增資料夾',
       'toast.folderRemoved': '已移除資料夾',

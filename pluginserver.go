@@ -338,17 +338,12 @@ func pluginDir() (string, error) {
 	return filepath.Join(config, "OpenWallpaper", "plugin"), nil
 }
 
-// extractPlugin 把内嵌的插件文件写入本地目录，随应用安装包一起分发。
-func extractPlugin() (string, error) {
-	dir, err := pluginDir()
-	if err != nil {
-		return "", err
-	}
+// extractPluginTo 把内嵌插件写入指定目录。
+func extractPluginTo(dir string) error {
 	if err := os.MkdirAll(dir, 0o755); err != nil {
-		return "", err
+		return err
 	}
-
-	err = fs.WalkDir(pluginAssets, "plugin", func(path string, entry fs.DirEntry, walkErr error) error {
+	return fs.WalkDir(pluginAssets, "plugin", func(path string, entry fs.DirEntry, walkErr error) error {
 		if walkErr != nil {
 			return walkErr
 		}
@@ -373,10 +368,51 @@ func extractPlugin() (string, error) {
 		}
 		return os.WriteFile(target, data, 0o644)
 	})
+}
+
+// extractPlugin 把内嵌的插件文件写入本地目录，随应用安装包一起分发。
+// 固定目录被正在运行的浏览器占用时，会退回到带时间戳的新目录，保证插件始终可用。
+func extractPlugin() (string, error) {
+	dir, err := pluginDir()
 	if err != nil {
 		return "", err
 	}
-	return dir, nil
+	if err := extractPluginTo(dir); err == nil {
+		return dir, nil
+	}
+
+	base := filepath.Dir(dir)
+	var lastErr error
+	for attempt := 0; attempt < 3; attempt++ {
+		alt := filepath.Join(base, fmt.Sprintf("plugin-%d-%d", time.Now().UnixNano(), attempt))
+		if err = extractPluginTo(alt); err == nil {
+			cleanupOldPluginDirs(base, alt)
+			return alt, nil
+		}
+		lastErr = err
+	}
+	if lastErr == nil {
+		lastErr = errors.New("导出插件失败")
+	}
+	return "", lastErr
+}
+
+// cleanupOldPluginDirs 清理旧的临时插件目录，避免不断累积。
+func cleanupOldPluginDirs(base, keep string) {
+	entries, err := os.ReadDir(base)
+	if err != nil {
+		return
+	}
+	for _, entry := range entries {
+		if !entry.IsDir() || !strings.HasPrefix(entry.Name(), "plugin-") {
+			continue
+		}
+		target := filepath.Join(base, entry.Name())
+		if target == keep {
+			continue
+		}
+		_ = os.RemoveAll(target)
+	}
 }
 
 // OpenDownloadFolder 在文件管理器中打开下载目录。

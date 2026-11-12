@@ -64,7 +64,7 @@ func openExtensionManager() (string, bool) {
 // launchBrowserWithExtension 用独立配置目录启动浏览器，并通过 CDP 自动加载未打包插件。
 // 优先使用应用下载的便携版 Chromium；不可用时退回本机 Chrome / Edge。
 func launchBrowserWithExtension(extensionDir, startURL string) (string, string, bool, bool) {
-	profile := envPath(os.Getenv("AppData"), "OpenWallpaper", "browser-session")
+	profile := envPath(os.Getenv("AppData"), "OpenWallpaper", "app-browser")
 	if profile == "" {
 		return "", "", false, false
 	}
@@ -72,51 +72,23 @@ func launchBrowserWithExtension(extensionDir, startURL string) (string, string, 
 		return "", "", false, false
 	}
 
-	// 已有独立浏览器在运行时直接复用，导航到目标网址，不重复创建。
-	if reuseRunningBrowser(profile, startURL) {
-		name := loadBrowserName()
-		if name == "" {
-			name = "Chromium"
-		}
-		return name, profile, true, true
+	// 只复用便携版 Chromium 创建的浏览器；其它内核可能没有装插件。
+	if loadBrowserName() == "Chromium" && reuseRunningBrowser(profile, startURL) {
+		return "Chromium", profile, true, true
 	}
 
-	// 优先使用本机已安装的 Chrome 内核；已安装就不再下载便携版。
+	// 只有便携版 Chromium（Chrome for Testing）支持程序化加载未打包插件。
+	// 已下载过则直接复用，不再重复安装。
+	if exe, err := ensureChromium(); err == nil {
+		if launched, loaded := tryLaunchBrowser(exe, profile, extensionDir, startURL); launched && loaded {
+			saveBrowserName("Chromium")
+			return "Chromium", profile, true, true
+		}
+	}
+
+	// 便携版不可用时，退回本机 Chrome / Edge（可能无法自动安装插件）。
 	all := browserCandidates()
-	chromeInstalled := false
 	for _, candidate := range all {
-		if candidate.name != "Chrome" {
-			continue
-		}
-		if candidate.path == "" {
-			continue
-		}
-		info, err := os.Stat(candidate.path)
-		if err != nil || info.IsDir() {
-			continue
-		}
-		chromeInstalled = true
-		if launched, loaded := tryLaunchBrowser(candidate.path, profile, extensionDir, startURL); launched && loaded {
-			saveBrowserName(candidate.name)
-			return candidate.name, profile, true, true
-		}
-	}
-
-	// 没有检测到 Chrome 时才下载便携版 Chromium。
-	if !chromeInstalled {
-		if exe, err := ensureChromium(); err == nil {
-			if launched, loaded := tryLaunchBrowser(exe, profile, extensionDir, startURL); launched && loaded {
-				saveBrowserName("Chromium")
-				return "Chromium", profile, true, true
-			}
-		}
-	}
-
-	// 最后尝试 Edge 等其它 Chromium 浏览器。
-	for _, candidate := range all {
-		if candidate.name == "Chrome" {
-			continue
-		}
 		if candidate.path == "" {
 			continue
 		}
@@ -155,17 +127,27 @@ func tryLaunchBrowser(exePath, profile, extensionDir, startURL string) (bool, bo
 	}
 
 	// 加载插件的过程放到后台并加超时保护，避免界面一直等待。
-	result := make(chan bool, 1)
+	type loadResult struct {
+		loaded bool
+		detail string
+	}
+	result := make(chan loadResult, 1)
 	go func() {
-		result <- loadExtensionOverCDP(profile, port, extensionDir, startURL)
+		loaded, detail := loadExtensionOverCDP(profile, port, extensionDir, startURL)
+		result <- loadResult{loaded: loaded, detail: detail}
 	}()
 
 	loaded := false
+	detail := ""
 	select {
-	case loaded = <-result:
+	case state := <-result:
+		loaded = state.loaded
+		detail = state.detail
 	case <-time.After(20 * time.Second):
 		loaded = false
+		detail = "加载超时"
 	}
+	appendBrowserLog(fmt.Sprintf("exe=%s port=%d loaded=%v detail=%s", exePath, port, loaded, detail))
 	if loaded {
 		// 记录调试端口，下次点击推荐网站时直接复用这个浏览器实例。
 		actualPort := port

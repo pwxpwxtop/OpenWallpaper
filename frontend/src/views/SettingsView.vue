@@ -1,5 +1,5 @@
 <script setup>
-import { computed, onMounted } from 'vue'
+import { computed, onBeforeUnmount, onMounted, ref } from 'vue'
 import { useToast } from 'primevue/usetoast'
 import { useSettingsStore } from '../stores/settings'
 import { useWallpapersStore } from '../stores/wallpapers'
@@ -25,6 +25,8 @@ const themes = computed(() => [
   },
 ])
 
+const rotateOptions = [5, 15, 30, 60, 120]
+const rotateOpen = ref(false)
 const formats = computed(() => [
   {
     kind: i18n.t('settings.formatImage'),
@@ -43,7 +45,14 @@ const formats = computed(() => [
   },
 ])
 
-onMounted(() => settings.load(true))
+onMounted(() => {
+  settings.load(true)
+  document.addEventListener('click', closeRotateMenu)
+})
+
+onBeforeUnmount(() => {
+  document.removeEventListener('click', closeRotateMenu)
+})
 
 async function addFolder() {
   try {
@@ -105,6 +114,40 @@ async function stopDynamic() {
       life: 4000,
     })
   }
+}
+
+async function updateRotation(enabled, minutes) {
+  try {
+    await settings.setRotation(enabled, minutes)
+    toast.add({ severity: 'success', summary: i18n.t('toast.rotateSaved'), life: 2200 })
+  } catch (err) {
+    toast.add({
+      severity: 'error',
+      summary: i18n.t('toast.saveFailed'),
+      detail: String(err?.message ?? err),
+      life: 4000,
+    })
+  }
+}
+
+function toggleRotation() {
+  updateRotation(!settings.rotateEnabled, settings.rotateMinutes)
+}
+
+function closeRotateMenu() {
+  rotateOpen.value = false
+}
+
+function toggleRotateMenu() {
+  if (!settings.rotateEnabled) {
+    return
+  }
+  rotateOpen.value = !rotateOpen.value
+}
+
+function pickRotation(minutes) {
+  rotateOpen.value = false
+  updateRotation(settings.rotateEnabled, minutes)
 }
 
 async function chooseDownloadDir() {
@@ -253,6 +296,59 @@ async function openPluginDir() {
           outlined
           @click="stopDynamic"
         />
+      </div>
+
+      <div class="panel">
+        <div class="panel-head">
+          <span class="panel-icon"><i class="pi pi-sync" /></span>
+          <div class="panel-copy">
+            <h2>{{ i18n.t('settings.rotate') }}</h2>
+            <p>{{ i18n.t('settings.rotateDesc') }}</p>
+          </div>
+        </div>
+
+        <div class="rotate-row">
+          <span>{{ i18n.t('settings.rotateEnable') }}</span>
+          <button
+            type="button"
+            class="rotate-switch"
+            :class="{ on: settings.rotateEnabled }"
+            @click="toggleRotation"
+          >
+            <span class="knob" />
+          </button>
+        </div>
+
+        <label class="rotate-interval">
+          <span>{{ i18n.t('settings.rotateInterval') }}</span>
+          <span
+            class="rotate-select"
+            :class="{ open: rotateOpen, disabled: !settings.rotateEnabled }"
+            @click.stop
+          >
+            <button
+              type="button"
+              class="select-trigger"
+              :disabled="!settings.rotateEnabled"
+              @click="toggleRotateMenu"
+            >
+              <span>{{ i18n.t('settings.rotateMinutes', { count: settings.rotateMinutes }) }}</span>
+              <i class="pi pi-angle-down" />
+            </button>
+            <ul v-if="rotateOpen" class="select-menu">
+              <li v-for="minutes in rotateOptions" :key="minutes">
+                <button
+                  type="button"
+                  :class="{ active: minutes === settings.rotateMinutes }"
+                  @click="pickRotation(minutes)"
+                >
+                  <span>{{ i18n.t('settings.rotateMinutes', { count: minutes }) }}</span>
+                  <i v-if="minutes === settings.rotateMinutes" class="pi pi-check" />
+                </button>
+              </li>
+            </ul>
+          </span>
+        </label>
       </div>
 
       <div class="panel">
@@ -586,6 +682,133 @@ async function openPluginDir() {
 
 .stop-btn {
   align-self: flex-start;
+}
+
+.rotate-row,
+.rotate-interval {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  font-size: 0.82rem;
+}
+
+.rotate-switch {
+  position: relative;
+  width: 42px;
+  height: 24px;
+  padding: 0;
+  flex-shrink: 0;
+  border: 1px solid var(--app-border-strong);
+  border-radius: 999px;
+  background: var(--app-panel-2);
+  cursor: pointer;
+  transition: background 0.18s ease;
+}
+
+.rotate-switch .knob {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #6366f1, #a855f7);
+  transition: transform 0.18s ease;
+}
+
+.rotate-switch.on .knob {
+  transform: translateX(18px);
+}
+
+.rotate-select {
+  position: relative;
+}
+
+.select-trigger {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  min-width: 136px;
+  padding: 9px 13px;
+  border: 1px solid var(--app-border-strong);
+  border-radius: 11px;
+  background: linear-gradient(180deg, var(--app-panel-2), var(--app-panel));
+  color: var(--p-text-color);
+  font-size: 0.78rem;
+  cursor: pointer;
+  transition: border-color 0.16s ease, box-shadow 0.16s ease;
+}
+
+.select-trigger:hover {
+  border-color: rgba(129, 140, 248, 0.6);
+}
+
+.rotate-select.open .select-trigger {
+  border-color: rgba(99, 102, 241, 0.8);
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.18);
+}
+
+.rotate-select.disabled .select-trigger {
+  opacity: 0.5;
+  cursor: default;
+  box-shadow: none;
+}
+
+.select-trigger i {
+  font-size: 0.62rem;
+  color: var(--p-text-muted-color);
+  transition: transform 0.16s ease;
+}
+
+.rotate-select.open .select-trigger i {
+  transform: rotate(180deg);
+}
+
+.select-menu {
+  position: absolute;
+  right: 0;
+  top: calc(100% + 6px);
+  z-index: 30;
+  min-width: 100%;
+  margin: 0;
+  padding: 5px;
+  list-style: none;
+  border: 1px solid var(--app-border-strong);
+  border-radius: 12px;
+  background: var(--app-panel);
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(12px);
+}
+
+.select-menu button {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  width: 100%;
+  padding: 8px 10px;
+  border: none;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--p-text-color);
+  font-size: 0.78rem;
+  text-align: left;
+  cursor: pointer;
+}
+
+.select-menu button:hover {
+  background: var(--app-highlight);
+}
+
+.select-menu button.active {
+  color: var(--app-nav-active-text);
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.22), rgba(139, 92, 246, 0.1));
+}
+
+.select-menu button i {
+  font-size: 0.65rem;
 }
 
 .btn-row {

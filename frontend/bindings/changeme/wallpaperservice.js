@@ -140,6 +140,16 @@ export function SelectFolder() {
 }
 
 /**
+ * SetRotation 保存自动切换壁纸的设置，并立即重置计时。
+ * @param {boolean} enabled
+ * @param {number} minutes
+ * @returns {$CancellablePromise<void>}
+ */
+export function SetRotation(enabled, minutes) {
+    return $Call.ByID(1912687971, enabled, minutes);
+}
+
+/**
  * SetTheme 持久化界面主题。
  * @param {string} theme
  * @returns {$CancellablePromise<void>}

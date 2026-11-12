@@ -199,6 +199,20 @@ export class Settings {
              */
             this["pluginPort"] = 0;
         }
+        if (!("rotateEnabled" in $$source)) {
+            /**
+             * @member
+             * @type {boolean}
+             */
+            this["rotateEnabled"] = false;
+        }
+        if (!("rotateMinutes" in $$source)) {
+            /**
+             * @member
+             * @type {number}
+             */
+            this["rotateMinutes"] = 0;
+        }
 
         Object.assign(this, $$source);
     }
