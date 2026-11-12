@@ -1,0 +1,54 @@
+{
+  "extName": { "message": "OpenWallpaper メディア収集" },
+  "extDesc": {
+    "message": "Web ページの画像と動画を収集し、ローカル WebSocket 経由で OpenWallpaper のキャッシュ フォルダに保存します。"
+  },
+  "panelTitle": { "message": "メディア収集" },
+  "refreshList": { "message": "リストを更新" },
+  "close": { "message": "閉じる" },
+  "tabImage": { "message": "画像" },
+  "tabVideo": { "message": "動画" },
+  "excludeLowRes": { "message": "低解像度の画像を除外" },
+  "filterByLongEdge": { "message": "画像の長辺でフィルター" },
+  "filterNone": { "message": "指定なし" },
+  "filter1280": { "message": "長辺 ≥ 1280" },
+  "filter1920": { "message": "長辺 ≥ 1920" },
+  "filter2560": { "message": "長辺 ≥ 2560" },
+  "filter3840": { "message": "長辺 ≥ 3840" },
+  "downloadAll": { "message": "すべてダウンロード" },
+  "downloadPage": { "message": "ページ全体をダウンロード" },
+  "sending": { "message": "送信中" },
+  "saved": { "message": "保存済み" },
+  "retry": { "message": "再試行" },
+  "download": { "message": "ダウンロード" },
+  "emptyImageTitle": { "message": "画像はまだ見つかりません" },
+  "emptyVideoTitle": { "message": "動画はまだ見つかりません" },
+  "emptyImageHint": {
+    "message": "スタイルやスクリプトで読み込まれる画像があります。ページをスクロールしてから更新してください。"
+  },
+  "emptyVideoHint": {
+    "message": "動画の URL は API の JSON に隠れていることが多く、再生やスクロールで自動的に取得されます。"
+  },
+  "clickPlay": { "message": "クリックして再生" },
+  "clickZoom": { "message": "クリックして拡大" },
+  "badgeTitle": { "message": "OpenWallpaper に保存" },
+  "noMedia": { "message": "ダウンロードできる項目がありません" },
+  "sendFailed": { "message": "送信に失敗しました。OpenWallpaper が起動しているか確認してください。" },
+  "queued": { "message": "{count} 件のファイルをキューに追加しました" },
+  "batchSaved": { "message": "{count} 件のメディアとページ全体の HTML の保存を開始しました" },
+  "savingPage": { "message": "ページ全体の HTML を保存しています" },
+  "connected": { "message": "接続済み" },
+  "disconnected": { "message": "未接続です。アプリを起動してください。" },
+  "listRefreshed": { "message": "リストを更新しました" },
+  "savedFile": { "message": "保存しました · {name}" },
+  "saveFailed": { "message": "保存に失敗しました · {error}" },
+  "unknownError": { "message": "不明なエラー" },
+  "fileName": { "message": "ファイル" },
+  "bgTimeout": { "message": "接続がタイムアウトしました。OpenWallpaper が起動しているか確認してください。" },
+  "bgDisconnected": { "message": "OpenWallpaper との接続が切断されました。" },
+  "bgCannotConnect": {
+    "message": "ローカルの OpenWallpaper サービスに接続できません。先にアプリを起動してください。"
+  },
+  "bgWriteTimeout": { "message": "クライアントの書き込み待ちがタイムアウトしました。" },
+  "bgConnectionLost": { "message": "接続が切断されました。" }
+}

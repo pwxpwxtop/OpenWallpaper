@@ -1,0 +1,54 @@
+{
+  "extName": { "message": "OpenWallpaper · ตัวเก็บสื่อ" },
+  "extDesc": {
+    "message": "เก็บรูปภาพและวิดีโอจากหน้าเว็บ แล้วส่งไปยังโฟลเดอร์แคชของ OpenWallpaper ผ่าน WebSocket ภายในเครื่อง"
+  },
+  "panelTitle": { "message": "ตัวเก็บสื่อ" },
+  "refreshList": { "message": "รีเฟรชรายการ" },
+  "close": { "message": "ปิด" },
+  "tabImage": { "message": "รูปภาพ" },
+  "tabVideo": { "message": "วิดีโอ" },
+  "excludeLowRes": { "message": "ยกเว้นรูปความละเอียดต่ำ" },
+  "filterByLongEdge": { "message": "กรองตามด้านยาวของรูป" },
+  "filterNone": { "message": "ไม่จำกัด" },
+  "filter1280": { "message": "ด้านยาว ≥ 1280" },
+  "filter1920": { "message": "ด้านยาว ≥ 1920" },
+  "filter2560": { "message": "ด้านยาว ≥ 2560" },
+  "filter3840": { "message": "ด้านยาว ≥ 3840" },
+  "downloadAll": { "message": "ดาวน์โหลดทั้งหมด" },
+  "downloadPage": { "message": "ดาวน์โหลดทั้งหน้า" },
+  "sending": { "message": "กำลังส่ง" },
+  "saved": { "message": "บันทึกแล้ว" },
+  "retry": { "message": "ลองใหม่" },
+  "download": { "message": "ดาวน์โหลด" },
+  "emptyImageTitle": { "message": "ยังไม่พบรูปภาพ" },
+  "emptyVideoTitle": { "message": "ยังไม่พบวิดีโอ" },
+  "emptyImageHint": {
+    "message": "รูปบางส่วนถูกโหลดด้วยสไตล์หรือสคริปต์ เลื่อนหน้าแล้วรีเฟรชอีกครั้ง"
+  },
+  "emptyVideoHint": {
+    "message": "URL วิดีโอมักซ่อนอยู่ใน JSON ของ API เล่นหรือเลื่อนหน้าแล้วระบบจะเก็บให้อัตโนมัติ"
+  },
+  "clickPlay": { "message": "คลิกเพื่อเล่น" },
+  "clickZoom": { "message": "คลิกเพื่อขยาย" },
+  "badgeTitle": { "message": "บันทึกไปยัง OpenWallpaper" },
+  "noMedia": { "message": "ไม่มีอะไรให้ดาวน์โหลด" },
+  "sendFailed": { "message": "ส่งไม่สำเร็จ โปรดตรวจสอบว่า OpenWallpaper กำลังทำงาน" },
+  "queued": { "message": "เข้าคิวแล้ว {count} ไฟล์" },
+  "batchSaved": { "message": "เริ่มบันทึกไฟล์สื่อ {count} ไฟล์และ HTML ของทั้งหน้า" },
+  "savingPage": { "message": "กำลังบันทึก HTML ของทั้งหน้า" },
+  "connected": { "message": "เชื่อมต่อแล้ว" },
+  "disconnected": { "message": "ยังไม่เชื่อมต่อ โปรดเปิดแอป" },
+  "listRefreshed": { "message": "รีเฟรชรายการแล้ว" },
+  "savedFile": { "message": "บันทึกแล้ว · {name}" },
+  "saveFailed": { "message": "บันทึกไม่สำเร็จ · {error}" },
+  "unknownError": { "message": "ข้อผิดพลาดที่ไม่รู้จัก" },
+  "fileName": { "message": "ไฟล์" },
+  "bgTimeout": { "message": "การเชื่อมต่อหมดเวลา โปรดตรวจสอบว่า OpenWallpaper กำลังทำงาน" },
+  "bgDisconnected": { "message": "การเชื่อมต่อกับ OpenWallpaper ถูกปิด" },
+  "bgCannotConnect": {
+    "message": "ไม่สามารถเชื่อมต่อบริการ OpenWallpaper ภายในเครื่องได้ โปรดเปิดแอปก่อน"
+  },
+  "bgWriteTimeout": { "message": "หมดเวลารอไคลเอนต์เขียนข้อมูล" },
+  "bgConnectionLost": { "message": "การเชื่อมต่อขาดหาย" }
+}

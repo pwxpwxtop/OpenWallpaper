@@ -1,0 +1,54 @@
+{
+  "extName": { "message": "OpenWallpaper - Thu thập media" },
+  "extDesc": {
+    "message": "Thu thập ảnh và video từ trang web rồi gửi vào thư mục bộ nhớ đệm của OpenWallpaper qua WebSocket cục bộ."
+  },
+  "panelTitle": { "message": "Thu thập media" },
+  "refreshList": { "message": "Làm mới danh sách" },
+  "close": { "message": "Đóng" },
+  "tabImage": { "message": "Ảnh" },
+  "tabVideo": { "message": "Video" },
+  "excludeLowRes": { "message": "Loại ảnh độ phân giải thấp" },
+  "filterByLongEdge": { "message": "Lọc theo cạnh dài của ảnh" },
+  "filterNone": { "message": "Không giới hạn" },
+  "filter1280": { "message": "Cạnh dài ≥ 1280" },
+  "filter1920": { "message": "Cạnh dài ≥ 1920" },
+  "filter2560": { "message": "Cạnh dài ≥ 2560" },
+  "filter3840": { "message": "Cạnh dài ≥ 3840" },
+  "downloadAll": { "message": "Tải tất cả" },
+  "downloadPage": { "message": "Tải toàn bộ trang" },
+  "sending": { "message": "Đang gửi" },
+  "saved": { "message": "Đã lưu" },
+  "retry": { "message": "Thử lại" },
+  "download": { "message": "Tải xuống" },
+  "emptyImageTitle": { "message": "Chưa tìm thấy ảnh" },
+  "emptyVideoTitle": { "message": "Chưa tìm thấy video" },
+  "emptyImageHint": {
+    "message": "Một số ảnh được tải bằng CSS hoặc script. Hãy cuộn trang rồi làm mới."
+  },
+  "emptyVideoHint": {
+    "message": "URL video thường ẩn trong JSON của API. Phát hoặc cuộn trang để tự động thu thập."
+  },
+  "clickPlay": { "message": "Nhấn để phát" },
+  "clickZoom": { "message": "Nhấn để phóng to" },
+  "badgeTitle": { "message": "Lưu vào OpenWallpaper" },
+  "noMedia": { "message": "Không có nội dung để tải" },
+  "sendFailed": { "message": "Gửi thất bại. Hãy kiểm tra OpenWallpaper đang chạy." },
+  "queued": { "message": "Đã xếp hàng {count} tệp" },
+  "batchSaved": { "message": "Đã bắt đầu lưu {count} tệp media và toàn bộ HTML của trang" },
+  "savingPage": { "message": "Đang lưu HTML toàn bộ trang" },
+  "connected": { "message": "Đã kết nối" },
+  "disconnected": { "message": "Chưa kết nối. Hãy khởi động ứng dụng." },
+  "listRefreshed": { "message": "Đã làm mới danh sách" },
+  "savedFile": { "message": "Đã lưu · {name}" },
+  "saveFailed": { "message": "Lưu thất bại · {error}" },
+  "unknownError": { "message": "Lỗi không xác định" },
+  "fileName": { "message": "tệp" },
+  "bgTimeout": { "message": "Hết thời gian kết nối. Hãy kiểm tra OpenWallpaper đang chạy." },
+  "bgDisconnected": { "message": "Kết nối tới OpenWallpaper đã bị đóng." },
+  "bgCannotConnect": {
+    "message": "Không thể kết nối dịch vụ OpenWallpaper cục bộ. Hãy khởi động ứng dụng trước."
+  },
+  "bgWriteTimeout": { "message": "Hết thời gian chờ máy khách ghi dữ liệu." },
+  "bgConnectionLost": { "message": "Mất kết nối." }
+}

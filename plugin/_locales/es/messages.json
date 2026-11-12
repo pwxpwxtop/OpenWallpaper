@@ -1,0 +1,58 @@
+{
+  "extName": { "message": "OpenWallpaper · Recopilador de medios" },
+  "extDesc": {
+    "message": "Recopila imágenes y vídeos de páginas web y los envía a la carpeta de caché de OpenWallpaper mediante un WebSocket local."
+  },
+  "panelTitle": { "message": "Recopilador de medios" },
+  "refreshList": { "message": "Actualizar lista" },
+  "close": { "message": "Cerrar" },
+  "tabImage": { "message": "Imágenes" },
+  "tabVideo": { "message": "Vídeos" },
+  "excludeLowRes": { "message": "Excluir imágenes de baja resolución" },
+  "filterByLongEdge": { "message": "Filtrar por lado largo" },
+  "filterNone": { "message": "Cualquiera" },
+  "filter1280": { "message": "Lado largo ≥ 1280" },
+  "filter1920": { "message": "Lado largo ≥ 1920" },
+  "filter2560": { "message": "Lado largo ≥ 2560" },
+  "filter3840": { "message": "Lado largo ≥ 3840" },
+  "downloadAll": { "message": "Descargar todo" },
+  "downloadPage": { "message": "Descargar página completa" },
+  "sending": { "message": "Enviando" },
+  "saved": { "message": "Guardado" },
+  "retry": { "message": "Reintentar" },
+  "download": { "message": "Descargar" },
+  "emptyImageTitle": { "message": "Aún no se han encontrado imágenes" },
+  "emptyVideoTitle": { "message": "Aún no se han encontrado vídeos" },
+  "emptyImageHint": {
+    "message": "Algunas imágenes se cargan con estilos o scripts. Desplázate y actualiza."
+  },
+  "emptyVideoHint": {
+    "message": "Las URL de vídeo suelen estar en el JSON de la API. Reproduce o desplázate y se capturarán."
+  },
+  "clickPlay": { "message": "Clic para reproducir" },
+  "clickZoom": { "message": "Clic para ampliar" },
+  "badgeTitle": { "message": "Guardar en OpenWallpaper" },
+  "noMedia": { "message": "No hay nada que descargar" },
+  "sendFailed": { "message": "Error al enviar. Comprueba que OpenWallpaper esté en ejecución." },
+  "queued": { "message": "{count} archivos en cola" },
+  "batchSaved": {
+    "message": "Se inició el guardado de {count} archivos multimedia y del HTML de toda la página"
+  },
+  "savingPage": { "message": "Guardando el HTML de toda la página" },
+  "connected": { "message": "Conectado" },
+  "disconnected": { "message": "Sin conexión. Inicia la aplicación." },
+  "listRefreshed": { "message": "Lista actualizada" },
+  "savedFile": { "message": "Guardado · {name}" },
+  "saveFailed": { "message": "Error al guardar · {error}" },
+  "unknownError": { "message": "Error desconocido" },
+  "fileName": { "message": "archivo" },
+  "bgTimeout": {
+    "message": "Se agotó el tiempo de conexión. Comprueba que OpenWallpaper esté en ejecución."
+  },
+  "bgDisconnected": { "message": "Se cerró la conexión con OpenWallpaper." },
+  "bgCannotConnect": {
+    "message": "No se puede acceder al servicio local de OpenWallpaper. Inicia la aplicación primero."
+  },
+  "bgWriteTimeout": { "message": "Se agotó el tiempo de espera de escritura del cliente." },
+  "bgConnectionLost": { "message": "Se perdió la conexión." }
+}

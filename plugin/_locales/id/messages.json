@@ -1,0 +1,56 @@
+{
+  "extName": { "message": "OpenWallpaper · Pengumpul media" },
+  "extDesc": {
+    "message": "Mengumpulkan gambar dan video dari halaman web lalu mengirimkannya ke folder cache OpenWallpaper melalui WebSocket lokal."
+  },
+  "panelTitle": { "message": "Pengumpul media" },
+  "refreshList": { "message": "Segarkan daftar" },
+  "close": { "message": "Tutup" },
+  "tabImage": { "message": "Gambar" },
+  "tabVideo": { "message": "Video" },
+  "excludeLowRes": { "message": "Kecualikan gambar resolusi rendah" },
+  "filterByLongEdge": { "message": "Filter berdasarkan sisi panjang" },
+  "filterNone": { "message": "Tanpa batas" },
+  "filter1280": { "message": "Sisi panjang ≥ 1280" },
+  "filter1920": { "message": "Sisi panjang ≥ 1920" },
+  "filter2560": { "message": "Sisi panjang ≥ 2560" },
+  "filter3840": { "message": "Sisi panjang ≥ 3840" },
+  "downloadAll": { "message": "Unduh semua" },
+  "downloadPage": { "message": "Unduh seluruh halaman" },
+  "sending": { "message": "Mengirim" },
+  "saved": { "message": "Tersimpan" },
+  "retry": { "message": "Coba lagi" },
+  "download": { "message": "Unduh" },
+  "emptyImageTitle": { "message": "Belum ada gambar ditemukan" },
+  "emptyVideoTitle": { "message": "Belum ada video ditemukan" },
+  "emptyImageHint": {
+    "message": "Beberapa gambar dimuat oleh gaya atau skrip. Gulir halaman lalu segarkan."
+  },
+  "emptyVideoHint": {
+    "message": "URL video sering tersembunyi di JSON API. Putar atau gulir halaman agar otomatis terambil."
+  },
+  "clickPlay": { "message": "Klik untuk memutar" },
+  "clickZoom": { "message": "Klik untuk memperbesar" },
+  "badgeTitle": { "message": "Simpan ke OpenWallpaper" },
+  "noMedia": { "message": "Tidak ada yang bisa diunduh" },
+  "sendFailed": { "message": "Gagal mengirim. Pastikan OpenWallpaper sedang berjalan." },
+  "queued": { "message": "{count} file masuk antrean" },
+  "batchSaved": {
+    "message": "Mulai menyimpan {count} file media dan HTML seluruh halaman"
+  },
+  "savingPage": { "message": "Menyimpan HTML seluruh halaman" },
+  "connected": { "message": "Terhubung" },
+  "disconnected": { "message": "Tidak terhubung. Jalankan aplikasi." },
+  "listRefreshed": { "message": "Daftar disegarkan" },
+  "savedFile": { "message": "Tersimpan · {name}" },
+  "saveFailed": { "message": "Gagal menyimpan · {error}" },
+  "unknownError": { "message": "Kesalahan tidak diketahui" },
+  "fileName": { "message": "file" },
+  "bgTimeout": { "message": "Waktu koneksi habis. Pastikan OpenWallpaper sedang berjalan." },
+  "bgDisconnected": { "message": "Koneksi ke OpenWallpaper ditutup." },
+  "bgCannotConnect": {
+    "message": "Tidak dapat menjangkau layanan OpenWallpaper lokal. Jalankan aplikasi terlebih dahulu."
+  },
+  "bgWriteTimeout": { "message": "Waktu tunggu penulisan klien habis." },
+  "bgConnectionLost": { "message": "Koneksi terputus." }
+}

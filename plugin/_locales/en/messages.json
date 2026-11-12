@@ -1,0 +1,54 @@
+{
+  "extName": { "message": "OpenWallpaper Media Collector" },
+  "extDesc": {
+    "message": "Collect images and videos from web pages and send them to OpenWallpaper's cache folder over a local WebSocket."
+  },
+  "panelTitle": { "message": "Media collector" },
+  "refreshList": { "message": "Refresh list" },
+  "close": { "message": "Close" },
+  "tabImage": { "message": "Images" },
+  "tabVideo": { "message": "Videos" },
+  "excludeLowRes": { "message": "Exclude low-resolution images" },
+  "filterByLongEdge": { "message": "Filter by image long edge" },
+  "filterNone": { "message": "Any" },
+  "filter1280": { "message": "Long edge ≥ 1280" },
+  "filter1920": { "message": "Long edge ≥ 1920" },
+  "filter2560": { "message": "Long edge ≥ 2560" },
+  "filter3840": { "message": "Long edge ≥ 3840" },
+  "downloadAll": { "message": "Download all" },
+  "downloadPage": { "message": "Download whole page" },
+  "sending": { "message": "Sending" },
+  "saved": { "message": "Saved" },
+  "retry": { "message": "Retry" },
+  "download": { "message": "Download" },
+  "emptyImageTitle": { "message": "No images found yet" },
+  "emptyVideoTitle": { "message": "No videos found yet" },
+  "emptyImageHint": {
+    "message": "Some images are loaded by styles or scripts. Scroll the page and refresh."
+  },
+  "emptyVideoHint": {
+    "message": "Video URLs are often hidden in API JSON. Play or scroll the page and they will be captured."
+  },
+  "clickPlay": { "message": "Click to play" },
+  "clickZoom": { "message": "Click to enlarge" },
+  "badgeTitle": { "message": "Save to OpenWallpaper" },
+  "noMedia": { "message": "Nothing to download" },
+  "sendFailed": { "message": "Sending failed. Make sure OpenWallpaper is running." },
+  "queued": { "message": "Queued {count} files" },
+  "batchSaved": { "message": "Started saving {count} media files plus the whole page HTML" },
+  "savingPage": { "message": "Saving the whole page HTML" },
+  "connected": { "message": "Connected" },
+  "disconnected": { "message": "Not connected. Please start the app." },
+  "listRefreshed": { "message": "List refreshed" },
+  "savedFile": { "message": "Saved · {name}" },
+  "saveFailed": { "message": "Save failed · {error}" },
+  "unknownError": { "message": "Unknown error" },
+  "fileName": { "message": "file" },
+  "bgTimeout": { "message": "Connection timed out. Make sure OpenWallpaper is running." },
+  "bgDisconnected": { "message": "The connection to OpenWallpaper was closed." },
+  "bgCannotConnect": {
+    "message": "Cannot reach the local OpenWallpaper service. Start the app first."
+  },
+  "bgWriteTimeout": { "message": "Timed out waiting for the client to write." },
+  "bgConnectionLost": { "message": "Connection lost." }
+}

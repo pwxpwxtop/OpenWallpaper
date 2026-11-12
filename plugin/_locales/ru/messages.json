@@ -1,0 +1,56 @@
+{
+  "extName": { "message": "OpenWallpaper — сбор медиа" },
+  "extDesc": {
+    "message": "Собирает изображения и видео со страниц и сохраняет их в папку кеша OpenWallpaper через локальный WebSocket."
+  },
+  "panelTitle": { "message": "Сбор медиа" },
+  "refreshList": { "message": "Обновить список" },
+  "close": { "message": "Закрыть" },
+  "tabImage": { "message": "Изображения" },
+  "tabVideo": { "message": "Видео" },
+  "excludeLowRes": { "message": "Исключать изображения низкого разрешения" },
+  "filterByLongEdge": { "message": "Фильтр по длинной стороне" },
+  "filterNone": { "message": "Без ограничений" },
+  "filter1280": { "message": "Длинная сторона ≥ 1280" },
+  "filter1920": { "message": "Длинная сторона ≥ 1920" },
+  "filter2560": { "message": "Длинная сторона ≥ 2560" },
+  "filter3840": { "message": "Длинная сторона ≥ 3840" },
+  "downloadAll": { "message": "Скачать всё" },
+  "downloadPage": { "message": "Скачать всю страницу" },
+  "sending": { "message": "Отправка" },
+  "saved": { "message": "Сохранено" },
+  "retry": { "message": "Повторить" },
+  "download": { "message": "Скачать" },
+  "emptyImageTitle": { "message": "Изображения пока не найдены" },
+  "emptyVideoTitle": { "message": "Видео пока не найдены" },
+  "emptyImageHint": {
+    "message": "Некоторые изображения загружаются стилями или скриптами. Прокрутите страницу и обновите список."
+  },
+  "emptyVideoHint": {
+    "message": "Ссылки на видео часто скрыты в JSON API. Воспроизведите или прокрутите страницу — они будут найдены автоматически."
+  },
+  "clickPlay": { "message": "Нажмите для воспроизведения" },
+  "clickZoom": { "message": "Нажмите для увеличения" },
+  "badgeTitle": { "message": "Сохранить в OpenWallpaper" },
+  "noMedia": { "message": "Нет материалов для скачивания" },
+  "sendFailed": { "message": "Не удалось отправить. Убедитесь, что OpenWallpaper запущен." },
+  "queued": { "message": "В очередь добавлено файлов: {count}" },
+  "batchSaved": { "message": "Начато сохранение медиафайлов ({count}) и HTML всей страницы" },
+  "savingPage": { "message": "Сохранение HTML всей страницы" },
+  "connected": { "message": "Подключено" },
+  "disconnected": { "message": "Нет подключения. Запустите приложение." },
+  "listRefreshed": { "message": "Список обновлён" },
+  "savedFile": { "message": "Сохранено · {name}" },
+  "saveFailed": { "message": "Ошибка сохранения · {error}" },
+  "unknownError": { "message": "Неизвестная ошибка" },
+  "fileName": { "message": "файл" },
+  "bgTimeout": {
+    "message": "Время ожидания подключения истекло. Убедитесь, что OpenWallpaper запущен."
+  },
+  "bgDisconnected": { "message": "Соединение с OpenWallpaper закрыто." },
+  "bgCannotConnect": {
+    "message": "Не удаётся подключиться к локальной службе OpenWallpaper. Сначала запустите приложение."
+  },
+  "bgWriteTimeout": { "message": "Время ожидания записи клиентом истекло." },
+  "bgConnectionLost": { "message": "Соединение потеряно." }
+}

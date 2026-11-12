@@ -1,0 +1,52 @@
+{
+  "extName": { "message": "OpenWallpaper 媒體採集" },
+  "extDesc": {
+    "message": "擷取網頁中的圖片與影片，透過本機 WebSocket 傳送給 OpenWallpaper 並儲存到快取目錄。"
+  },
+  "panelTitle": { "message": "媒體採集" },
+  "refreshList": { "message": "重新整理列表" },
+  "close": { "message": "關閉" },
+  "tabImage": { "message": "圖片" },
+  "tabVideo": { "message": "影片" },
+  "excludeLowRes": { "message": "排除低像素圖片" },
+  "filterByLongEdge": { "message": "依圖片長邊篩選" },
+  "filterNone": { "message": "不限" },
+  "filter1280": { "message": "長邊 ≥ 1280" },
+  "filter1920": { "message": "長邊 ≥ 1920" },
+  "filter2560": { "message": "長邊 ≥ 2560" },
+  "filter3840": { "message": "長邊 ≥ 3840" },
+  "downloadAll": { "message": "全部下載" },
+  "downloadPage": { "message": "下載整個網頁" },
+  "sending": { "message": "傳送中" },
+  "saved": { "message": "已儲存" },
+  "retry": { "message": "重試" },
+  "download": { "message": "下載" },
+  "emptyImageTitle": { "message": "暫未發現圖片" },
+  "emptyVideoTitle": { "message": "暫未發現影片" },
+  "emptyImageHint": {
+    "message": "有些圖片由樣式或腳本載入，捲動頁面後再重新整理試試。"
+  },
+  "emptyVideoHint": {
+    "message": "影片網址常藏在介面 JSON 中，播放或捲動頁面後會自動擷取。"
+  },
+  "clickPlay": { "message": "點擊播放" },
+  "clickZoom": { "message": "點擊放大檢視" },
+  "badgeTitle": { "message": "快取到 OpenWallpaper" },
+  "noMedia": { "message": "沒有可下載的內容" },
+  "sendFailed": { "message": "傳送失敗，請確認 OpenWallpaper 已啟動" },
+  "queued": { "message": "已加入佇列 {count} 個檔案" },
+  "batchSaved": { "message": "已開始儲存 {count} 個媒體檔案 + 整個網頁 HTML" },
+  "savingPage": { "message": "正在儲存整個網頁的 HTML" },
+  "connected": { "message": "已連線" },
+  "disconnected": { "message": "未連線，請啟動應用程式" },
+  "listRefreshed": { "message": "列表已重新整理" },
+  "savedFile": { "message": "已儲存 · {name}" },
+  "saveFailed": { "message": "儲存失敗 · {error}" },
+  "unknownError": { "message": "未知錯誤" },
+  "fileName": { "message": "檔案" },
+  "bgTimeout": { "message": "連線逾時，請確認 OpenWallpaper 正在執行" },
+  "bgDisconnected": { "message": "與 OpenWallpaper 的連線已中斷" },
+  "bgCannotConnect": { "message": "無法連線 OpenWallpaper 本機服務，請先啟動應用程式" },
+  "bgWriteTimeout": { "message": "等待用戶端寫入逾時" },
+  "bgConnectionLost": { "message": "連線已中斷" }
+}

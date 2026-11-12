@@ -1,0 +1,52 @@
+{
+  "extName": { "message": "OpenWallpaper 媒体采集" },
+  "extDesc": {
+    "message": "采集网页中的图片与视频，通过本地 WebSocket 发送给 OpenWallpaper 保存到缓存目录。"
+  },
+  "panelTitle": { "message": "媒体采集" },
+  "refreshList": { "message": "刷新列表" },
+  "close": { "message": "关闭" },
+  "tabImage": { "message": "图片" },
+  "tabVideo": { "message": "视频" },
+  "excludeLowRes": { "message": "排除低像素图片" },
+  "filterByLongEdge": { "message": "按图片长边过滤" },
+  "filterNone": { "message": "不限" },
+  "filter1280": { "message": "长边 ≥ 1280" },
+  "filter1920": { "message": "长边 ≥ 1920" },
+  "filter2560": { "message": "长边 ≥ 2560" },
+  "filter3840": { "message": "长边 ≥ 3840" },
+  "downloadAll": { "message": "全部下载" },
+  "downloadPage": { "message": "下载整个网页" },
+  "sending": { "message": "发送中" },
+  "saved": { "message": "已保存" },
+  "retry": { "message": "重试" },
+  "download": { "message": "下载" },
+  "emptyImageTitle": { "message": "暂未发现图片" },
+  "emptyVideoTitle": { "message": "暂未发现视频" },
+  "emptyImageHint": {
+    "message": "有些图片由样式或脚本加载，滚动页面后再刷新试试。"
+  },
+  "emptyVideoHint": {
+    "message": "视频地址常藏在接口 JSON 中，播放或滚动页面后会自动捕获。"
+  },
+  "clickPlay": { "message": "点击播放" },
+  "clickZoom": { "message": "点击放大查看" },
+  "badgeTitle": { "message": "缓存到 OpenWallpaper" },
+  "noMedia": { "message": "没有可下载的内容" },
+  "sendFailed": { "message": "发送失败，请确认 OpenWallpaper 已启动" },
+  "queued": { "message": "已加入队列 {count} 个文件" },
+  "batchSaved": { "message": "已开始保存 {count} 个媒体文件 + 整个网页 HTML" },
+  "savingPage": { "message": "正在保存整个网页的 HTML" },
+  "connected": { "message": "已连接" },
+  "disconnected": { "message": "未连接，请启动应用" },
+  "listRefreshed": { "message": "列表已刷新" },
+  "savedFile": { "message": "已保存 · {name}" },
+  "saveFailed": { "message": "保存失败 · {error}" },
+  "unknownError": { "message": "未知错误" },
+  "fileName": { "message": "文件" },
+  "bgTimeout": { "message": "连接超时，请确认 OpenWallpaper 正在运行" },
+  "bgDisconnected": { "message": "与 OpenWallpaper 的连接已断开" },
+  "bgCannotConnect": { "message": "无法连接 OpenWallpaper 本地服务，请先启动应用" },
+  "bgWriteTimeout": { "message": "等待客户端写入超时" },
+  "bgConnectionLost": { "message": "连接已断开" }
+}
